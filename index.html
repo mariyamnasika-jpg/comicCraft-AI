@@ -1,61 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>ComicCraft</title>
-  <style>
-    body { font-family: sans-serif; background: linear-gradient(135deg, #f5d0fe, #a5b4fc); padding: 20px; }
-    .box { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-    textarea, input, select { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box; }
-    button { width: 100%; padding: 14px; background: #8b5cf6; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; margin-top: 10px; }
-    #output { max-width: 800px; margin: 30px auto; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-    .panel { background: white; border: 3px solid black; border-radius: 10px; padding: 15px; }
-    .panel h3 { margin-top: 0; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ComicCraft AI - Real Comic Generator</title>
+<style>
+body{font-family:Arial;background:#0f0f0f;color:white;display:flex;justify-content:center;padding:20px}
+.card{background:#1e1e1e;padding:25px;border-radius:15px;width:100%;max-width:500px;box-shadow:0 0 20px #ff00ff55}
+input,select{width:100%;padding:10px;margin:8px 0;border-radius:8px;border:none}
+button{width:100%;padding:12px;background:linear-gradient(90deg,#ff00ff,#00ffff);border:none;border-radius:8px;color:white;font-weight:bold;cursor:pointer;margin-top:10px;font-size:16px}
+#result{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.panel{background:#2a2a2a;border-radius:10px;overflow:hidden;text-align:center;padding-bottom:5px}
+.panel img{width:100%;height:200px;object-fit:cover}
+.panel p{font-size:12px;padding:5px}
+</style>
 </head>
 <body>
-<div class="box">
-  <h1 style="text-align:center;">ComicCraft</h1>
-  <label>Story Prompt</label>
-  <textarea id="story" rows="3">Hero Chennai la villain ah adikuraan</textarea>
-  <label>Main Character Name</label>
-  <input id="character" value="Sugan">
-  <label>Setting</label>
-  <input id="setting" value="Marina Beach">
-  <label>Story Tone</label>
-  <select id="tone"><option>Dramatic</option><option>Action</option><option>Comedy</option></select>
-  <label>Art Style</label>
-  <select id="style"><option>Comic</option><option>Anime</option><option>Realistic</option></select>
-  <button onclick="generate()">Generate Comic</button>
+<div class="card">
+<h2 style="text-align:center">🔥 ComicCraft AI 🔥</h2>
+<label>Story Prompt</label>
+<input id="story" placeholder="Hero Chennai la villain ah adikuraan" value="Hero Chennai la villain ah adikuraan">
+<label>Character Name</label>
+<input id="character" placeholder="Sugan" value="Sugan">
+<label>Setting</label>
+<input id="setting" placeholder="Marina Beach" value="Marina Beach at sunset, cinematic">
+<label>Style</label>
+<select id="style">
+<option>Dramatic comic book style, highly detailed</option>
+<option>Anime style, vibrant colors</option>
+<option>Cyberpunk comic style</option>
+<option>Realistic cinematic</option>
+</select>
+<button onclick="generate()">Generate Comic 🚀</button>
+<div id="result"></div>
 </div>
-
-<div id="output"></div>
 
 <script>
 function generate(){
-  const story = document.getElementById("story").value;
-  const character = document.getElementById("character").value;
-  const setting = document.getElementById("setting").value;
-  const tone = document.getElementById("tone").value;
-  const style = document.getElementById("style").value;
+  const story = document.getElementById('story').value;
+  const charName = document.getElementById('character').value;
+  const setting = document.getElementById('setting').value;
+  const style = document.getElementById('style').value;
+  const result = document.getElementById('result');
+  result.innerHTML = "<p style='text-align:center'>Generating 4 panels... ⏳</p>";
 
-  const out = document.getElementById("output");
-  out.innerHTML = "";
+  const scenes = [
+    `Panel 1 intro: ${charName} in ${setting}, beginning of story ${story}, ${style}`,
+    `Panel 2 action: ${charName} fighting, dynamic action, ${setting}, ${story}, ${style}`,
+    `Panel 3 climax: intense dramatic moment, ${charName}, ${setting}, ${style}`,
+    `Panel 4 ending: victorious hero ${charName}, happy ending, ${setting}, ${style}, epic lighting`
+  ];
 
-  // 4 panels create pannrom
-  for(let i=1; i<=4; i++){
-    out.innerHTML += `
-      <div class="panel">
-        <h3>Panel ${i}</h3>
-        <p><b>Hero:</b> ${character}</p>
-        <p><b>Place:</b> ${setting}</p>
-        <p>${story} - Part ${i}</p>
-        <p style="background:#eee; padding:40px; text-align:center;">[${style} Image ${i} - ${tone}]</p>
-        <small>Sugan vs Villain at Marina Beach</small>
-      </div>
-    `;
-  }
-  // keela scroll aagum
-  window.scrollTo(0, document.body.scrollHeight);
+  setTimeout(()=>{
+    result.innerHTML = "";
+    scenes.forEach((prompt, i)=>{
+      const encoded = encodeURIComponent(prompt);
+      const seed = Math.floor(Math.random()*10000);
+      const imgUrl = `https://image.pollinations.ai/prompt/${encoded}?seed=${seed}&width=512&height=512&nologo=true`;
+      
+      const div = document.createElement('div');
+      div.className = 'panel';
+      div.innerHTML = `<img src="${imgUrl}" alt="panel ${i+1}"><p>Panel ${i+1}</p>`;
+      result.appendChild(div);
+    });
+  }, 500);
 }
 </script>
 </body>
