@@ -1,48 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ComicCraft AI - Real Comic Generator</title>
+<title>ComicCraft AI - No Image</title>
 <style>
-body{font-family:Arial;background:#0f0f0f;color:white;display:flex;justify-content:center;padding:10px}
-.card{background:#1e1e1e;padding:25px;border-radius:15px;width:100%;max-width:900px;box-shadow:0 8px 30px rgba(0,0,0,0.5)}
-input,select{width:100%;padding:10px;margin:8px 0;border-radius:8px;border:none}
-button{width:100%;padding:12px;background:linear-gradient(90deg,#ff0066,#ff6600);border:none;border-radius:10px;color:white;font-weight:bold;cursor:pointer;font-size:16px}
-#result{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.panel{background:#2a2a2a;border-radius:10px;overflow:hidden;text-align:center;padding-bottom:5px;min-height:250px}
-.panel img{width:100%;height:200px;object-fit:cover}
-.panel p{font-size:12px;padding:5px}
+body{background:#1e1e2f;color:white;font-family:Arial;padding:20px;text-align:center}
+input{width:90%;padding:12px;margin:8px;border-radius:10px;border:none;font-size:16px}
+button{width:92%;padding:14px;background:linear-gradient(90deg,#ff4d9e,#ff8a3d);border:none;border-radius:12px;color:white;font-size:18px;font-weight:bold;margin-top:10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.panel{background:#2a2a40;border-radius:12px;padding:15px;min-height:120px;text-align:left;border-left:4px solid #ff4d9e}
+.panel h3{margin:0 0 10px 0;color:#ff8a3d}
 </style>
 </head>
 <body>
-<div class="card">
-<h2 style="text-align:center">🎨 ComicCraft AI 🎨</h2>
-<label>Story Prompt</label>
-<input id="story" placeholder="Superhero at beach" value="Superhero at beach">
-<label>Setting</label>
-<input id="setting" value="Marina Beach at sunset, cinematic">
-<label>Style</label>
-<select id="style"><option>Dramatic comic book style</option><option>Anime</option><option>Realistic</option></select>
-<button onclick="generate()">🔥 Generate Comic 🔥</button>
-<div id="result">
-<div class="panel" id="p1"><p>Panel 1</p></div>
-<div class="panel" id="p2"><p>Panel 2</p></div>
-<div class="panel" id="p3"><p>Panel 3</p></div>
-<div class="panel" id="p4"><p>Panel 4</p></div>
-</div>
+<h1>🎨 ComicCraft AI 🎨</h1>
+<input id="story" placeholder="Un story type pannu" value="Hero Chennai la villain ah adikaran">
+<input id="setting" value="Marina Beach at sunset">
+<button onclick="generate()">🔥 Generate Comic Story 🔥</button>
+<div class="grid">
+<div class="panel" id="p1"><h3>Panel 1</h3><p>Click Generate</p></div>
+<div class="panel" id="p2"><h3>Panel 2</h3><p>Click Generate</p></div>
+<div class="panel" id="p3"><h3>Panel 3</h3><p>Click Generate</p></div>
+<div class="panel" id="p4"><h3>Panel 4</h3><p>Click Generate</p></div>
 </div>
 <script>
 function generate(){
- const story=document.getElementById('story').value;
- const setting=document.getElementById('setting').value;
- const style=document.getElementById('style').value;
- for(let i=1;i<=4;i++){
-   const prompt = `${story}, ${setting}, ${style}, comic panel ${i}`;
-   const seed = Math.floor(Math.random()*999999);
-   const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?seed=${seed}&nologo=true&width=512&height=512&model=flux`;
-   document.getElementById('p'+i).innerHTML = `<img src="${url}" onload="this.style.opacity=1"><p>Panel ${i}</p>`;
- }
+let s=document.getElementById('story').value;
+let set=document.getElementById('setting').value;
+document.getElementById('p1').innerHTML="<h3>Panel 1 - Start</h3><p>📍 "+set+"<br><br>🦸 "+s+" - Hero entry mass ah irukku!</p>";
+document.getElementById('p2').innerHTML="<h3>Panel 2 - Conflict</h3><p>😈 Villain varan! Marina la sandai start aaguthu! Rendu perum fight ku ready!</p>";
+document.getElementById('p3').innerHTML="<h3>Panel 3 - Action</h3><p>💥 BOOM! Power full fight! Hero villain ah strong ah adikaran!</p>";
+document.getElementById('p4').innerHTML="<h3>Panel 4 - Victory</h3><p>🏆 Hero wins! Chennai beach la ellarum hero va celebrate panranga! The End!</p>";
 }
 </script>
 </body>
