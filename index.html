@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ComicCraft</title>
+  <style>
+    body { font-family: sans-serif; background: linear-gradient(135deg, #f5d0fe, #a5b4fc); padding: 20px; }
+    .box { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    textarea, input, select { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box; }
+    button { width: 100%; padding: 14px; background: #8b5cf6; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; margin-top: 10px; }
+    #output { max-width: 800px; margin: 30px auto; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .panel { background: white; border: 3px solid black; border-radius: 10px; padding: 15px; }
+    .panel h3 { margin-top: 0; }
+  </style>
+</head>
+<body>
+<div class="box">
+  <h1 style="text-align:center;">ComicCraft</h1>
+  <label>Story Prompt</label>
+  <textarea id="story" rows="3">Hero Chennai la villain ah adikuraan</textarea>
+  <label>Main Character Name</label>
+  <input id="character" value="Sugan">
+  <label>Setting</label>
+  <input id="setting" value="Marina Beach">
+  <label>Story Tone</label>
+  <select id="tone"><option>Dramatic</option><option>Action</option><option>Comedy</option></select>
+  <label>Art Style</label>
+  <select id="style"><option>Comic</option><option>Anime</option><option>Realistic</option></select>
+  <button onclick="generate()">Generate Comic</button>
+</div>
+
+<div id="output"></div>
+
+<script>
+function generate(){
+  const story = document.getElementById("story").value;
+  const character = document.getElementById("character").value;
+  const setting = document.getElementById("setting").value;
+  const tone = document.getElementById("tone").value;
+  const style = document.getElementById("style").value;
+
+  const out = document.getElementById("output");
+  out.innerHTML = "";
+
+  // 4 panels create pannrom
+  for(let i=1; i<=4; i++){
+    out.innerHTML += `
+      <div class="panel">
+        <h3>Panel ${i}</h3>
+        <p><b>Hero:</b> ${character}</p>
+        <p><b>Place:</b> ${setting}</p>
+        <p>${story} - Part ${i}</p>
+        <p style="background:#eee; padding:40px; text-align:center;">[${style} Image ${i} - ${tone}]</p>
+        <small>Sugan vs Villain at Marina Beach</small>
+      </div>
+    `;
+  }
+  // keela scroll aagum
+  window.scrollTo(0, document.body.scrollHeight);
+}
+</script>
+</body>
+</html>
